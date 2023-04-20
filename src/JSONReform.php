@@ -7,7 +7,7 @@ use InvalidArgumentException;
 /**
  * A simple class for reading and formatting JSON data.
  */
-class JsonReader
+class JSONReform
 {
     /** @var array */
     private $data;
