@@ -1,6 +1,6 @@
 # JsonReform
 
-A simple PHP library for reading and formatting JSON data.
+A simple PHP library for reading, formatting and getting values of a JSON data.
 
 ## Installation
 
