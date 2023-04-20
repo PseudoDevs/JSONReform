@@ -1,56 +1,66 @@
 <?php
 
+declare(strict_types=1);
+
 namespace iamjohndev;
 
-class JsonReform
+use InvalidArgumentException;
+
+/**
+ * A simple class for reading and formatting JSON data.
+ */
+class JSONReform
 {
+    protected array $data;
+
     /**
-     * Formats a JSON string or a PHP array into a human-readable format
+     * Creates a new JsonReader instance from a JSON string.
      *
-     * @param string|array $data The JSON string or PHP array to format
-     * @param bool $isJson (optional) Set to true if $data is a JSON string, defaults to true
-     * @param int $options (optional) Formatting options, see https://www.php.net/manual/en/function.json-encode.php
-     * @param int $depth (optional) Maximum depth of nested structures, see https://www.php.net/manual/en/function.json-encode.php
-     * @return string The formatted string
+     * @param string $json The JSON string to read.
      */
-    public static function format($data, $isJson = true, $options = 0, $depth = 512)
+    public function __construct(string $json)
     {
-        if ($isJson) {
-            $data = json_decode($data, true, $depth, $options);
+        $this->data = json_decode($json, true);
+    }
+
+    /**
+     * Gets the value at the specified path in the JSON data.
+     *
+     * @param string $path The path to the value, in dot notation.
+     * @param mixed $default The default value to return if the path is invalid.
+     * @return mixed The value at the specified path, or the default value if the path is invalid.
+     */
+    public function getValue(string $path, mixed $default = null): mixed
+    {
+        $keys = explode('.', $path);
+        $value = $this->data;
+
+        foreach ($keys as $key) {
+            if (!isset($value[$key])) {
+                return $default;
+            }
+
+            $value = $value[$key];
         }
 
-        return self::dump($data);
+        return $value;
     }
 
     /**
-     * Dumps a PHP variable into a human-readable format
+     * Returns the JSON string in the specified format.
      *
-     * @param mixed $data The PHP variable to dump
-     * @param int $depth (optional) Maximum depth of nested structures, defaults to 512
-     * @param int $options (optional) Formatting options, see https://www.php.net/manual/en/function.var-export.php
-     * @return string The formatted string
-     */
-    public static function dump($data, $depth = 512, $options = 0)
-    {
-        return self::prettify(var_export($data, true), $depth, $options);
-    }
-
-    /**
-     * Prettifies a string by removing redundant white spaces and adding line breaks
+     * @param string $format The format to use (one of 'json', 'pretty', 'minified').
+     * @return string The JSON string in the specified format.
      *
-     * @param string $string The string to prettify
-     * @param int $depth (optional) Maximum depth of nested structures, defaults to 512
-     * @param int $options (optional) Formatting options, see https://www.php.net/manual/en/function.var-export.php
-     * @return string The prettified string
+     * @throws \InvalidArgumentException if an invalid format is provided.
      */
-    public static function prettify($string, $depth = 512, $options = 0)
+    public function format(string $format = 'json'): string
     {
-        $string = var_export($string, true);
-        $string = preg_replace("/^([ ]*)(.*)/m", '$1$1$2', $string); // add extra indentation
-        $string = preg_replace("/\]=>\n(\s+)/m", "] => ", $string); // remove line breaks after keys
-        $string = preg_replace('/\s*$/m', '', $string); // remove trailing white spaces
-        $string = "Array\n(\n" . $string . "\n)";
-
-        return $string;
+        return match ($format) {
+            'json' => json_encode($this->data),
+            'pretty' => json_encode($this->data, JSON_PRETTY_PRINT),
+            'minified' => json_encode($this->data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
+            default => throw new InvalidArgumentException("Invalid format: $format"),
+        };
     }
 }
