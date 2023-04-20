@@ -1,0 +1,22 @@
+{
+    "name": "iamjohndev/json-reform",
+    "description": "A simple PHP Library that can read and format JSON data.",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+      "php": "^8.0"
+    },
+    "authors": [
+      {
+        "name": "John Lester Legaspi",
+        "email": "mail@iamjohndev.fun"
+      }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+      "psr-4": {
+        "iamjohndev\\": "src/"
+      }
+    }
+  }
+  
