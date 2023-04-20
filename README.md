@@ -10,6 +10,7 @@ Install via Composer:
 
 ## Usage
 
+```php
     use iamjohndev\JSONReform;
     
     // Read JSON data from a string
@@ -27,6 +28,7 @@ Install via Composer:
     
     // Get a nested value from the JSON data
     $value = $reader->getValue('data.persons.0.name'); // "John"
+```
 
 # API
 ```php
