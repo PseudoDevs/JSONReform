@@ -33,14 +33,14 @@ Install via Composer:
 # API
 ```php
 JSONReform::__construct(string $json)
-Creates a new JSONReform instance from a JSON string.
+// Creates a new JSONReform instance from a JSON string.
 
 JSONReform::fromFile(string $path)
-Creates a new JSONReform instance from a JSON file.
+// Creates a new JSONReform instance from a JSON file.
 
 JSONReform::getValue(string $path, mixed $default = null): mixed
-Gets the value at the specified path in the JSON data.
+// Gets the value at the specified path in the JSON data.
 
 JSONReform::format(string $format = 'json'): string
-Returns the JSON string in the specified format.
+// Returns the JSON string in the specified format.
 ```
