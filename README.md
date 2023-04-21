@@ -5,7 +5,7 @@ A simple PHP library for reading, formatting and getting values of a JSON data.
 ## Installation
 
 Install via Composer:
-`composer require iamjohndev/json-reform`
+`composer require iamjohndev/json-reform:dev-main`
 
 
 ## Usage
