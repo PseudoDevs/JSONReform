@@ -23,13 +23,13 @@ class JSONReform
     }
 
     /**
-     * Creates a new JsonReader instance from a JSON file.
+     * Creates a new JsonReform instance from a JSON file.
      *
      * @param string $filename The path to the JSON file to read.
-     * @return JsonReader The JsonReader instance created from the file.
+     * @return JsonReform The JsonReform instance created from the file.
      * @throws InvalidArgumentException If the file does not exist or cannot be read.
      */
-    public static function fromFile(string $filename): JsonReader
+    public static function fromFile(string $filename): JsonReform
     {
         if (!is_file($filename) || !is_readable($filename)) {
             throw new InvalidArgumentException("File not found or cannot be read: $filename");
@@ -45,12 +45,12 @@ class JSONReform
     }
 
     /**
-     * Creates a new JsonReader instance from an HTTP Request Body
+     * Creates a new JsonReform instance from an HTTP Request Body
      * 
-     * @return JsonReader The JsonReader instance created from the file.
+     * @return JsonReform The JsonReform instance created from the file.
      * @throws InvalidArgumentException If the this fails reading from the http request body.
      */
-    public static function fromHTTPRequestBody(): JsonReader 
+    public static function fromHTTPRequestBody(): JsonReform 
     {
         $json = file_get_contents('php://input');
 
