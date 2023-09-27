@@ -45,6 +45,23 @@ class JSONReform
     }
 
     /**
+     * Creates a new JsonReader instance from an HTTP Request Body
+     * 
+     * @return JsonReader The JsonReader instance created from the file.
+     * @throws InvalidArgumentException If the this fails reading from the http request body.
+     */
+    public static function fromHTTPRequestBody(): JsonReader 
+    {
+        $json = file_get_contents('php://input');
+
+        if($json === false) {
+            throw new InvalidArgumentException("Failed to read json from http request body");
+        }
+
+        return new self($json);
+    }
+
+    /**
      * Gets the value at the specified path in the JSON data.
      *
      * @param string $path The path to the value, in dot notation.
