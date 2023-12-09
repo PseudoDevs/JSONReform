@@ -41,6 +41,9 @@ JSONReform::fromFile(string $path)
 JSONReform::getValue(string $path, mixed $default = null): mixed
 // Gets the value at the specified path in the JSON data.
 
+JsonReform::fromHTTPRequestBody();
+// Creates a new JsonReform instance from an HTTP Request Body
+
 JSONReform::format(string $format = 'json'): string
 // Returns the JSON string in the specified format.
 ```
